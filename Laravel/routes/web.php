@@ -27,10 +27,11 @@ use App\Http\Middleware\HelloMiddleware;
 //Route::get('/hello', 'HelloController@index')->name('hello');
 Route::middleware([HelloMiddleware::class])->group(function(){
 		//Route::get('/hello/{id}', 'HelloController@index')->where('id','[0-9]+');
-		Route::get('/hello', 'HelloController@index');
+		Route::get('/hello', 'HelloController@index')->name("hello");
+		Route::get('/hello/{msg}', 'HelloController@other');
 	//	Route::get('/hello/{people}', 'HelloController@index');
-		Route::get('/hello/{person}', 'HelloController@index');
-		Route::get('/hello/other', 'HelloController@other');
+		//Route::get('/hello/{person}', 'HelloController@index');
+		//Route::get('/hello/other', 'HelloController@other');
 		});
 
 //名前空間を使ったRouteの指定方法
