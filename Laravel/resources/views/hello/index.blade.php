@@ -16,6 +16,12 @@ td {background-color:#eee; padding:10px;}
 @foreach($data as $item)
 <li>{{$item}}</li>
 @endforeach
+
+
+<p>
+<a href="/hello/other">download </a>
+</p>
+
 </body>
 </html>
 
