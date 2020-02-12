@@ -116,11 +116,18 @@ class HelloController extends Controller
 		return redirect()->route("hello");
 	}
 
+	public function other($msg){
+		return Storage::disk("public")->download($this->fname);
+	}
+
+
+
 */
 
 
-	public function other($msg){
-		return Storage::disk("public")->download($this->fname);
+	public function other(Request $request){
+		Storage::disk("local")->putfile("files", $request->file("file"));
+		return redirect()->route("hello");
 	}
 
 
