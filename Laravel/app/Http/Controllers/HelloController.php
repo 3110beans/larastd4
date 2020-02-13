@@ -15,21 +15,78 @@ class HelloController extends Controller
 		//$this->fname = "sample.txt";
 		$this->fname = "hello.txt";
 	}
-/*
-	public function index($id){
+
+	public function index(){
+		$url = Storage::disk("public")->url($this->fname);
+		$size = Storage::disk("public")->size($this->fname);
+		$modified = Storage::disk("public")->LastModified($this->fname);
+		$modified_time = date("y-m-d", $modified);
+		$sample_keys = ["url", "size", "modified"];
+		$sample_meta = [$url, $size, $modified_time];
+		$result = '<table><tr><th>'. implode('</th><th>', $sample_keys) . '</th></tr>';
+		$result .= '<tr><td>'. implode('</td><td>', $sample_meta) . '</td></tr></table>';
+		$sample_data = Storage::disk('public')->get($this->fname);
 		$data = [
-			//'msg' => 'This is Sample Message.',
-			'msg' => '$id = ' . $id,
+			'msg' => $result,
+			'data' => explode(PHP_EOL, $sample_data),
 		];
 		return view('hello/index', $data);
 	}
 
-	public function other(){
-		return redirect()->route('hello');
+
+	public function other(Request $request){
+		$ext = "." . $request->file("file")->extension();
+		Storage::disk("public")->putFileAs("files", $request->file("file"), "uploaded" . $ext);
+		return redirect()->route("hello");
 	}
 
 
+
+/*
+	public function other(Request $request){
+		Storage::disk("local")->putfile("files", $request->file("file"));
+		return redirect()->route("hello");
+	}
+
+
+	public function other($msg){
+		return Storage::disk("public")->download($this->fname);
+	}
+
+
+
+	public function other($msg){
+		if(Storage::disk("public")->exists("bk_" . $this->fname)){
+			Storage::disk("public")->delete("bk_" . $this->fname);
+		}
+			
+		Storage::disk("public")->copy($this->fname, "bk_" . $this->fname);
+		if(Storage::disk("public")->exists("bk_" . $this->fname)){
+			Storage::disk("local")->delete("bk_" . $this->fname);
+		}
+		Storage::disk("local")->move("public/bk_" . $this->fname, "bk_" . $this->fname);
+		return redirect()->route("hello");
+	}
+
+
+	public function other($msg){
+		//$data = Storage::get($this->fname) . PHP_EOL . $msg;
+		//Storage::put($this->fname, $data);
+		Storage::disk("public")->prepend($this->fname,$msg);
+		return redirect()->route("hello");
+	}
+
+	public function other(Request $request){
+		$data = [
+			'msg' => $request->bye,
+		];
+		return view('hello/index', $data);
+	}
+
+
+
 */
+
 
 
 /*
@@ -70,67 +127,22 @@ class HelloController extends Controller
 
 */
 
-	public function index(){
-	//	$sample_msg = $this->fname;
-		$url = Storage::disk("public")->url($this->fname);
-		$size = Storage::disk("public")->size($this->fname);
-		$modified = Storage::disk("public")->LastModified($this->fname);
-		$modified_time = date("y-m-d", $modified);
-		$sample_keys = ["url", "size", "modified"];
-		$sample_meta = [$url, $size, $modified_time];
-		$result = '<table><tr><th>'. implode('</th><th>', $sample_keys) . '</th></tr>';
-		$result .= '<tr><td>'. implode('</td><td>', $sample_meta) . '</td></tr></table>';
-		$sample_data = Storage::disk('public')->get($this->fname);
-		$data = [
-			'msg' => $result,
-			'data' => explode(PHP_EOL, $sample_data),
-		];
-		return view('hello/index', $data);
-	}
+
 /*
-	public function other(Request $request){
+	public function index($id){
 		$data = [
-			'msg' => $request->bye,
+			//'msg' => 'This is Sample Message.',
+			'msg' => '$id = ' . $id,
 		];
 		return view('hello/index', $data);
 	}
 
-	public function other($msg){
-		//$data = Storage::get($this->fname) . PHP_EOL . $msg;
-		//Storage::put($this->fname, $data);
-		Storage::disk("public")->prepend($this->fname,$msg);
-		return redirect()->route("hello");
+	public function other(){
+		return redirect()->route('hello');
 	}
-
-
-	public function other($msg){
-		if(Storage::disk("public")->exists("bk_" . $this->fname)){
-			Storage::disk("public")->delete("bk_" . $this->fname);
-		}
-			
-		Storage::disk("public")->copy($this->fname, "bk_" . $this->fname);
-		if(Storage::disk("public")->exists("bk_" . $this->fname)){
-			Storage::disk("local")->delete("bk_" . $this->fname);
-		}
-		Storage::disk("local")->move("public/bk_" . $this->fname, "bk_" . $this->fname);
-		return redirect()->route("hello");
-	}
-
-	public function other($msg){
-		return Storage::disk("public")->download($this->fname);
-	}
-
 
 
 */
-
-
-	public function other(Request $request){
-		Storage::disk("local")->putfile("files", $request->file("file"));
-		return redirect()->route("hello");
-	}
-
-
 
 
 

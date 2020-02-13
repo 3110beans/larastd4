@@ -30,6 +30,8 @@ td {background-color:#eee; padding:10px;}
 	<input type="submit">
 </form>
 
+<a href="/storage/files/uploaded.jpeg">this</a>
+
 </body>
 </html>
 
