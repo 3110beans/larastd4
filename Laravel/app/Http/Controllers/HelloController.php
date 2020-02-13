@@ -17,6 +17,28 @@ class HelloController extends Controller
 	}
 
 	public function index(){
+		$dir = "/";
+		$all = Storage::disk("local")->allfiles($dir);
+		$data = [
+			"msg" => "DIR: " . $dir,
+			"data" => $all,
+		];
+		return view('hello/index', $data);
+	}
+
+
+	public function other(Request $request){
+		$ext = "." . $request->file("file")->extension();
+		Storage::disk("public")->putFileAs("files", $request->file("file"), "uploaded" . $ext);
+		return redirect()->route("hello");
+	}
+
+
+
+/*
+
+
+	public function index(){
 		$url = Storage::disk("public")->url($this->fname);
 		$size = Storage::disk("public")->size($this->fname);
 		$modified = Storage::disk("public")->LastModified($this->fname);
@@ -34,15 +56,8 @@ class HelloController extends Controller
 	}
 
 
-	public function other(Request $request){
-		$ext = "." . $request->file("file")->extension();
-		Storage::disk("public")->putFileAs("files", $request->file("file"), "uploaded" . $ext);
-		return redirect()->route("hello");
-	}
 
 
-
-/*
 	public function other(Request $request){
 		Storage::disk("local")->putfile("files", $request->file("file"));
 		return redirect()->route("hello");
