@@ -64,6 +64,22 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+	//20200214 add by kazumi
+	'logs' => [
+		'driver' => 'local',
+		'root' => storage_path('logs'),
+		'url' => env('APP_URL') . '/storage/logs',
+	],
+
+	//20200214 add by kazumi
+	'ftp' => [
+		'driver' => 'ftp',
+		'host' => '****',
+		'username' => '****',
+		'password' => '****',
+	],
+
+
     ],
 
 ];

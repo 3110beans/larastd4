@@ -18,7 +18,9 @@ class HelloController extends Controller
 
 	public function index(){
 		$dir = "/";
-		$all = Storage::disk("local")->allfiles($dir);
+		//$all = Storage::disk("local")->allfiles($dir);
+		$all = Storage::disk("logs")->allfiles($dir);
+		//$all = Storage::disk("ftp")->allfiles($dir);
 		$data = [
 			"msg" => "DIR: " . $dir,
 			"data" => $all,
