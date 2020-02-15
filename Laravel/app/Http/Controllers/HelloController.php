@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Person;
 use App\People;
 use Illuminate\Support\Facades\Storage;
@@ -15,6 +16,100 @@ class HelloController extends Controller
 		//$this->fname = "sample.txt";
 		$this->fname = "hello.txt";
 	}
+
+	public function index(Request $request, Response $response){
+		$name = $request->query("name");
+		$mail = $request->query("mail");
+		$tel = $request->query("tel");
+		$msg = $request->query("msg");
+		$keys = ["名前", "メール", "電話"];
+		$values = [$name, $mail, $tel];
+
+		$data = [
+			"msg" => $msg,
+			"keys" => $keys,
+			"values" => $values,
+		];
+
+		$result = $request->flash();
+		return view('hello/index', $data);
+
+	}
+
+
+	public function other(){
+
+		$data = [
+			"name" => "talo",
+			"mail" => "talo@yamada.com",
+			"tel" => "999-999-999",
+		];
+		$query_str = http_build_query($data);
+		$data["msg"] = $query_str;
+		return redirect()->route("hello", $data);
+
+	}
+
+
+
+/*
+
+	public function other(Request $request){
+		$ext = "." . $request->file("file")->extension();
+		Storage::disk("public")->putFileAs("files", $request->file("file"), "uploaded" . $ext);
+		return redirect()->route("hello");
+	}
+
+
+
+	public function index(Request $request, Response $response){
+		$name = $request->query("name");
+		$mail = $request->query("mail");
+		$tel = $request->query("tel");
+		$msg = $name . "," . $mail . "," . $tel;
+		$keys = ["名前", "メール", "電話"];
+		$values = [$name, $mail, $tel];
+
+		$data = [
+			"msg" => $msg,
+			"keys" => $keys,
+			"values" => $values,
+		];
+
+		$result = $request->flash();
+		return view('hello/index', $data);
+
+	}
+
+
+	public function index(Request $request, Response $response){
+		$msg = "Please input text:";
+		$keys = [];
+		$values = [];
+		if($request->isMethod("post")){
+			//$form = $request->all();
+			$form = $request->only(["name","mail", "tel"]);
+			$keys = array_keys($form);
+			$values = array_values($form);
+			$msg = old("name") . "," . old("mail") . "," . old("tel");
+			$data = [
+				"msg" => $msg,
+				"keys" => $keys,
+				"values" => $values,
+			];
+
+			$result = $request->flash();
+			return view('hello/index', $data);
+		}
+		$data =[
+			"msg" => $msg,
+			"keys" => $keys,
+			"values" => $values,
+		];
+		$result = $request->flash();
+		return view('hello/index', $data);
+	}
+
 
 	public function index(){
 		$dir = "/";
@@ -29,15 +124,6 @@ class HelloController extends Controller
 	}
 
 
-	public function other(Request $request){
-		$ext = "." . $request->file("file")->extension();
-		Storage::disk("public")->putFileAs("files", $request->file("file"), "uploaded" . $ext);
-		return redirect()->route("hello");
-	}
-
-
-
-/*
 
 
 	public function index(){
