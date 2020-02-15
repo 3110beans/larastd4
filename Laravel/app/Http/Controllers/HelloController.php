@@ -4,19 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Person;
-use App\People;
+//use App\Person;
+//use App\People;
 use Illuminate\Support\Facades\Storage;
-use App\MyClasses\MyService;
+use App\MyClasses\MyServiceInterface;
 
 class HelloController extends Controller
 {
+
 	function __construct()
 	{
-		config(["sample.message" => "新しいメッセージだよ"]);
-		//$this->fname = "sample.txt";
-		$this->fname = "hello.txt";
 	}
+
+	public function index(MyServiceInterface $myservice, int $id = -1){
+		$myservice->setId($id);
+		$data = [
+			"msg" => $myservice->say(),
+			"data" => $myservice->alldata(),
+		];
+
+		return view('hello/index', $data);
+
+	}
+
+/*
+
+	function __construct(MyService $myservice)
+	{
+		$myservice = app('App\MyClasses\MyService');
+	}
+
 
 	public function index(int $id = -1){
 		$myservice = app()->makeWith("App\MyClasses\MyService", ["id" => $id]);
@@ -30,7 +47,6 @@ class HelloController extends Controller
 
 	}
 
-
 	public function other(){
 
 		$data = [
@@ -43,10 +59,6 @@ class HelloController extends Controller
 		return redirect()->route("hello", $data);
 
 	}
-
-
-
-/*
 
 	public function index(Request $request, Response $response){
 		$name = $request->query("name");
@@ -200,13 +212,6 @@ class HelloController extends Controller
 		return view('hello/index', $data);
 	}
 
-
-
-*/
-
-
-
-/*
 	public function index(Request $request){
 		$data = [
 			'msg' => $request->hello,
@@ -242,10 +247,6 @@ class HelloController extends Controller
 		return view('hello/index', $data);
 	}
 
-*/
-
-
-/*
 	public function index($id){
 		$data = [
 			//'msg' => 'This is Sample Message.',
