@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Person;
 use App\People;
 use Illuminate\Support\Facades\Storage;
+use App\MyClasses\MyService;
 
 class HelloController extends Controller
 {
@@ -17,21 +18,14 @@ class HelloController extends Controller
 		$this->fname = "hello.txt";
 	}
 
-	public function index(Request $request, Response $response){
-		$name = $request->query("name");
-		$mail = $request->query("mail");
-		$tel = $request->query("tel");
-		$msg = $request->query("msg");
-		$keys = ["名前", "メール", "電話"];
-		$values = [$name, $mail, $tel];
+	public function index(int $id = -1){
+		$myservice = app()->makeWith("App\MyClasses\MyService", ["id" => $id]);
 
 		$data = [
-			"msg" => $msg,
-			"keys" => $keys,
-			"values" => $values,
+			"msg" => $myservice->say(),
+			"data" => $myservice->alldata(),
 		];
 
-		$result = $request->flash();
 		return view('hello/index', $data);
 
 	}
@@ -53,6 +47,26 @@ class HelloController extends Controller
 
 
 /*
+
+	public function index(Request $request, Response $response){
+		$name = $request->query("name");
+		$mail = $request->query("mail");
+		$tel = $request->query("tel");
+		$msg = $request->query("msg");
+		$keys = ["名前", "メール", "電話"];
+		$values = [$name, $mail, $tel];
+
+		$data = [
+			"msg" => $msg,
+			"keys" => $keys,
+			"values" => $values,
+		];
+
+		$result = $request->flash();
+		return view('hello/index', $data);
+
+	}
+
 
 	public function other(Request $request){
 		$ext = "." . $request->file("file")->extension();

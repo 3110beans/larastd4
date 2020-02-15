@@ -9,18 +9,17 @@ th {background-color:red; padding:10px;}
 td {background-color:#eee; padding:10px;}
 </style>
 <h1>Hello/Index(modified 9)</h1>
+<a href="/storage/files/uploaded.jpeg">this</a>
 
 <p>
 {!!$msg!!}
 </p>
 
-{{--
 @foreach($data as $item)
 <li>{{$item}}</li>
 @endforeach
---}}
 
-
+{{--
 <p>
 <a href="/hello/other">download </a>
 </p>
@@ -32,7 +31,6 @@ td {background-color:#eee; padding:10px;}
 	<input type="submit">
 </form>
 
-<a href="/storage/files/uploaded.jpeg">this</a>
 <hr>
 
 
@@ -51,7 +49,7 @@ td {background-color:#eee; padding:10px;}
 </li>
 @endfor
 </ol>
-
+--}}
 
 </body>
 </html>
