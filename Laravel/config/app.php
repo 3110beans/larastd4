@@ -175,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+	/*
+	* kazumi add 20200216
+	*/
+	App\Providers\MyServiceProvider::class,
+
     ],
 
     /*
