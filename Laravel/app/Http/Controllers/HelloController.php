@@ -7,7 +7,8 @@ use Illuminate\Http\Response;
 //use App\Person;
 //use App\People;
 use Illuminate\Support\Facades\Storage;
-use App\MyClasses\MyServiceInterface;
+//use App\MyClasses\MyServiceInterface;
+use App\Facades\MyService;
 
 class HelloController extends Controller
 {
@@ -15,6 +16,19 @@ class HelloController extends Controller
 	function __construct()
 	{
 	}
+
+	public function index(int $id = -1){
+		MyService::setId($id);
+		$data = [
+			"msg" => MyService::say(),
+			"data" => MyService::alldata(),
+		];
+
+		return view('hello/index', $data);
+
+	}
+
+/*
 
 	public function index(MyServiceInterface $myservice, int $id = -1){
 		$myservice->setId($id);
@@ -26,8 +40,6 @@ class HelloController extends Controller
 		return view('hello/index', $data);
 
 	}
-
-/*
 
 	function __construct(MyService $myservice)
 	{
