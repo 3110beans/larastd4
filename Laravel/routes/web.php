@@ -34,8 +34,10 @@ Route::middleware([HelloMiddleware::class])->group(function(){
 		//Route::post('/hello/other', 'HelloController@other');
 		//Route::get('/hello', 'HelloController@index');
 		//Route::post('/hello', 'HelloController@index');
-		Route::get('/hello', 'HelloController@index')->name("hello");
-		Route::get('/hello/{id}', 'HelloController@index');
+		//Route::get('/hello', 'HelloController@index')->name("hello");
+		//Route::get('/hello/{id}', 'HelloController@index');
+		Route::get('/hello', 'HelloController@index')->middleware(App\Http\Middleware\MyMiddleware::class);
+		Route::get('/hello/{id}', 'HelloController@index')->middleware(App\Http\Middleware\MyMiddleware::class);
 		Route::get('/hello/other', 'HelloController@other');
 		});
 

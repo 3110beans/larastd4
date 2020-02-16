@@ -17,6 +17,18 @@ class HelloController extends Controller
 	{
 	}
 
+	public function index(Request $request){
+		$data = [
+			"msg" => $request->msg,
+			"data" => $request->alldata,
+		];
+
+		return view('hello/index', $data);
+
+	}
+
+/*
+
 	public function index(int $id = -1){
 		MyService::setId($id);
 		$data = [
@@ -27,8 +39,6 @@ class HelloController extends Controller
 		return view('hello/index', $data);
 
 	}
-
-/*
 
 	public function index(MyServiceInterface $myservice, int $id = -1){
 		$myservice->setId($id);
