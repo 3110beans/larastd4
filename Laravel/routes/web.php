@@ -26,6 +26,8 @@ Route::resource('book', 'BookController');
 
 //Route::get('/hello', 'HelloController@index')->name('hello');
 Route::get('/hello', 'HelloController@index');
+Route::get('/hello/{id}', 'HelloController@index');
+
 /*
 Route::middleware([HelloMiddleware::class])->group(function(){
 		//Route::get('/hello/{id}', 'HelloController@index')->where('id','[0-9]+');

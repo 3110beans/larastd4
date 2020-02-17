@@ -16,6 +16,9 @@ td {background-color:#eee; padding:10px;}
 </p>
 {{$data}}
 
+<link href="/css/app.css" rel="stylesheet">
+{!! $data->links() !!}
+
 {{--
 @foreach($data as $item)
 <li>{{$item}}</li>

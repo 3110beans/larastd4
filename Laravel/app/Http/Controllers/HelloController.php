@@ -18,6 +18,24 @@ class HelloController extends Controller
 	{
 	}
 
+	public function index(Request $request){
+		$id = $request->query('page');
+
+		$msg = 'show page: ' . $id;
+
+		$result = DB::table("people")->paginate(2, ['*'], 'page', $id);
+
+		$data = [
+			"msg" => $msg,
+			"data" => $result,
+		];
+
+		return view('hello/index', $data);
+
+	}
+
+/*
+
 	public function index(){
 
 		$result = DB::table("people")->get();
@@ -29,8 +47,6 @@ class HelloController extends Controller
 		return view('hello/index', $data);
 
 	}
-
-/*
 
 		$data = [
 			"msg" => $request->hello,
