@@ -8,7 +8,8 @@ use Illuminate\Http\Response;
 //use App\People;
 use Illuminate\Support\Facades\Storage;
 //use App\MyClasses\MyServiceInterface;
-use App\Facades\MyService;
+//use App\Facades\MyService;
+use Illuminate\Support\Facades\DB;
 
 class HelloController extends Controller
 {
@@ -17,10 +18,12 @@ class HelloController extends Controller
 	{
 	}
 
-	public function index(Request $request){
+	public function index(){
+
+		$result = DB::table("people")->get();
 		$data = [
-			"msg" => $request->msg,
-			"data" => $request->alldata,
+			"msg" => "Database access.",
+			"data" => $result,
 		];
 
 		return view('hello/index', $data);
@@ -28,6 +31,14 @@ class HelloController extends Controller
 	}
 
 /*
+
+		$data = [
+			"msg" => $request->hello,
+			"data" => $request->alldata,
+		];
+
+		return view('hello/index', $data);
+
 
 	public function index(int $id = -1){
 		MyService::setId($id);
