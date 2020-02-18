@@ -23,7 +23,8 @@ class HelloController extends Controller
 
 		$msg = 'show page: ' . $id;
 
-		$result = DB::table("people")->paginate(2, ['*'], 'page', $id);
+		//$result = DB::table("people")->paginate(1, ['*'], 'page', $id);
+		$result = DB::table("people")->simplePaginate(2);
 
 		$data = [
 			"msg" => $msg,
