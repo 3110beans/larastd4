@@ -23,12 +23,18 @@ class HelloController extends Controller
 
 		$msg = 'show people record.';
 		//$result = Person::get();
-		$result = Person::get()->filter(function($person){
-			return $person->age < 20;
+		$result1 = Person::get()->filter(function($person){
+			return $person->age >= 40;
 		});
+
+		$result2 = Person::get()->filter(function($person){
+			return $person->age < 40;
+		});
+		$result3 = $result1->diff($result2);
+
 		$data = [
 			"msg" => $msg,
-			"data" => $result,
+			"data" => $result2,
 		];
 
 		return view('hello/index', $data);
