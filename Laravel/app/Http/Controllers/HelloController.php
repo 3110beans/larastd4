@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-//use App\Person;
+use App\Person;
 //use App\People;
 use Illuminate\Support\Facades\Storage;
 //use App\MyClasses\MyServiceInterface;
 //use App\Facades\MyService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Pagination\MyPaginator;
 
 class HelloController extends Controller
 {
@@ -19,13 +20,12 @@ class HelloController extends Controller
 	}
 
 	public function index(Request $request){
-		$id = $request->query('page');
 
-		$msg = 'show page: ' . $id;
-
-		//$result = DB::table("people")->paginate(1, ['*'], 'page', $id);
-		$result = DB::table("people")->simplePaginate(2);
-
+		$msg = 'show people record.';
+		//$result = Person::get();
+		$result = Person::get()->filter(function($person){
+			return $person->age < 20;
+		});
 		$data = [
 			"msg" => $msg,
 			"data" => $result,
@@ -36,6 +36,26 @@ class HelloController extends Controller
 	}
 
 /*
+
+	public function index(Request $request){
+
+		$id = $request->query('page');
+		$msg = 'show page: ' . $id;
+		//$result = DB::table("people")->paginate(1, ['*'], 'page', $id);
+		//$result = DB::table("people")->simplePaginate(2);
+		$result = Person::paginate(1);
+		$paginator = new MyPaginator($result);
+
+		$data = [
+			"msg" => $msg,
+			"data" => $result,
+			"paginator" => $paginator,
+		];
+
+		return view('hello/index', $data);
+
+	}
+
 
 	public function index(){
 
