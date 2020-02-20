@@ -26,7 +26,8 @@ Route::resource('book', 'BookController');
 
 //Route::get('/hello', 'HelloController@index')->name('hello');
 Route::get('/hello/{id}/{name}', 'HelloController@save');
-Route::get('/hello', 'HelloController@index');
+Route::get('/hello', 'HelloController@index')->name("hello");
+//Route::get('/hello', 'HelloController@index');
 Route::get('/hello/{id}', 'HelloController@index');
 
 

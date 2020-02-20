@@ -37,8 +37,10 @@ class HelloController extends Controller
 	public function save($id, $name){
 		$record = Person::find($id);
 		$record->name = $name;
+		//echo $name;
+		//echo $record->name;
 		$record->save();
-		return redirect()->route('hello');
+		return redirect()->route("hello");
 	}
 
 /*
