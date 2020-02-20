@@ -17,9 +17,8 @@ td {background-color:#eee; padding:10px;}
 @foreach($data as $item)
 <tr>
 <th> {{$item->id}} </th>
-<td> {{$item->name}} </td>
-<td> {{$item->mail}} </td>
-<td> {{$item->age}} </td>
+<td> {{$item->name_and_age}} </td>
+<td> {{$item->all_data}} </td>
 </tr>
 @endforeach
 </table>

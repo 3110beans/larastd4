@@ -25,8 +25,10 @@ Route::resource('book', 'BookController');
 //use App\Http\Middleware\HelloMiddleware;
 
 //Route::get('/hello', 'HelloController@index')->name('hello');
+Route::get('/hello/{id}/{name}', 'HelloController@save');
 Route::get('/hello', 'HelloController@index');
 Route::get('/hello/{id}', 'HelloController@index');
+
 
 /*
 Route::middleware([HelloMiddleware::class])->group(function(){
@@ -47,10 +49,12 @@ Route::middleware([HelloMiddleware::class])->group(function(){
 */
 //名前空間を使ったRouteの指定方法
 /*
+
 Route::namespace("Sample")->group(function(){
 	Route::get("/sample", "SampleController@index");
 	Route::get("/sample/other", "SampleController@other");
 });
+
 */
 
 //名前空間を使用しないRouteの指定方法
