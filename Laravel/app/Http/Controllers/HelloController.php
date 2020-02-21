@@ -34,14 +34,35 @@ class HelloController extends Controller
 
 	}
 
+	public function other(){
+		$person = new Person();
+		$person->all_data = ["john","j@j.com","50"];
+		$person->save();
+		return redirect()->route("hello");
+	}
+
+
 	public function save($id, $name){
 		$record = Person::find($id);
 		$record->name = $name;
-		//echo $name;
-		//echo $record->name;
 		$record->save();
 		return redirect()->route("hello");
 	}
+
+
+	public function json($id = -1){
+		if($id == -1){
+			return Person::get()->toJson();
+		}else{
+			return Person::find($id)->toJson();
+		}
+
+	}
+
+
+
+
+
 
 /*
 
