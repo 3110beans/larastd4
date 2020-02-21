@@ -38,7 +38,8 @@ class HelloController extends Controller
 		$record = Person::find($id);
 		$record->name = $name;
 		$record->save();
-		return redirect()->route('hello');
+		return view('hello/index', [$msg =>""]);
+		//return redirect()->route('hello');
 	}
 
 /*
