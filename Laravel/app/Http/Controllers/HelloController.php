@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 //use App\Facades\MyService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Pagination\MyPaginator;
+use App\Jobs\MyJob;
 
 class HelloController extends Controller
 {
@@ -18,6 +19,54 @@ class HelloController extends Controller
 	function __construct()
 	{
 	}
+
+	public function index(Person $person = null){
+		if($person != null){
+			Myjob::dispatch($person);
+		}
+		$msg = 'show people record.';
+		$result = Person::get();
+		$data = [
+			"input" => "",
+			"msg" => $msg,
+			"data" => $result,
+		];
+
+		return view('hello/index', $data);
+
+	}
+
+	public function other(){
+		$person = new Person();
+		$person->all_data = ["john","j@j.com","50"];
+		$person->save();
+		return redirect()->route("hello");
+	}
+
+
+	public function save($id, $name){
+		$record = Person::find($id);
+		$record->name = $name;
+		$record->save();
+		return redirect()->route("hello");
+	}
+
+
+	public function json($id = -1){
+		if($id == -1){
+			return Person::get()->toJson();
+		}else{
+			return Person::find($id)->toJson();
+		}
+
+	}
+
+
+
+
+
+
+/*
 
 	public function index(Request $request){
 
@@ -34,15 +83,6 @@ class HelloController extends Controller
 
 	}
 
-	public function save($id, $name){
-		$record = Person::find($id);
-		$record->name = $name;
-		$record->save();
-		return view('hello/index', [$msg =>""]);
-		//return redirect()->route('hello');
-	}
-
-/*
 
 	public function index(Request $request){
 

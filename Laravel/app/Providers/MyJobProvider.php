@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class MyServiceProvider extends ServiceProvider
+class MyJobProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -14,9 +14,9 @@ class MyServiceProvider extends ServiceProvider
     public function register()
     {
         //
-	app()->singleton('myservice','App\MyClasses\PowerMyService');
-	app()->singleton('App\MyClasses\MyServiceInterface','App\MyClasses\PowerMyService');
-//	echo "<b><MyServiceProvider/register></b><br>";
+	$this->app->bindMethod(MyJob::class.'@handle', function($job, $app){
+		return $job->handle();	
+	});
     }
 
     /**
@@ -27,6 +27,5 @@ class MyServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-//	echo "<b><MyServiceProvider/boot></b><br>";
     }
 }
