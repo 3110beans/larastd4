@@ -22,7 +22,8 @@ class HelloController extends Controller
 
 	public function index(Person $person = null){
 		if($person != null){
-			Myjob::dispatch($person);
+			//Myjob::dispatch($person);
+			Myjob::dispatch($person)->delay(now()->addMinutes(5));
 		}
 		$msg = 'show people record.';
 		$result = Person::get();
