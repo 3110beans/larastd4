@@ -26,7 +26,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-	$schedule->exec('./mycmd.sh');
+
+	//$schedule->exec('./mycmd.sh');
+	$count = Person::all()->count();
+	$id = rand(0, $count) + 1;
+	$schedule->call(function()use($id){
+		$person = Person::find($id);
+		My::Job::dispatch($person);
+	});
     }
 
     /**
