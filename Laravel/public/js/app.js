@@ -69069,6 +69069,7 @@ function (_Component) {
       msg: 'ok'
     };
     _this.doChange = _this.doChange.bind(_assertThisInitialized(_this));
+    _this.doAction = _this.doAction.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -69079,8 +69080,30 @@ function (_Component) {
       this.setState(function (state) {
         return {
           num: n,
-          msg: 'count: ' + n
+          person: null
         };
+      });
+    }
+  }, {
+    key: "doAction",
+    value: function doAction(event) {
+      var _this2 = this;
+
+      this.setState(function (state) {
+        return {
+          msg: 'wait...'
+        };
+      });
+      axios.get('/hello/json/' + this.state.num).then(function (response) {
+        var person = response.data;
+        var msg = person.id + ':' + person.name + ' [' + person.mail + '] (' + person.age + ')';
+
+        _this2.setState(function (state) {
+          return {
+            person: person,
+            msg: msg
+          };
+        });
       });
     }
   }, {
@@ -69092,7 +69115,9 @@ function (_Component) {
         type: "number",
         id: "num",
         onChange: this.doChange
-      })));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.doAction
+      }, "Click")));
     }
   }]);
 
