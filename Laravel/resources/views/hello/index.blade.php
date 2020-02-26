@@ -2,13 +2,13 @@
 <html lang=ja>
 <head>
 <title>Index</title>
+<link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css">
+<meta name="csrf-token" content={{ csrf_token() }}>
 </head>
-<style>
-th {background-color:red; padding:10px;}
-td {background-color:#eee; padding:10px;}
-</style>
 
 <script>
+
+/*
 function doAction(){
 	var id = document.querySelector("#id").value;
 	console.log(id);
@@ -27,34 +27,17 @@ function doAction(){
 	}
 	xhr.send();
 }
+*/
 </script>
-<body>
+<body style="padding:10px;">
 
 <h1>Hello/Index</h1>
-
-<div>
-	<input type="number" id="id" value="1">
-	<button onclick="doAction();">Click</button>
-</div>
-<ul>
-<li id="name"></li>
-<li id="mail"></li>
-<li id="age"></li>
-</ul>
-
-
-
-
 <p> {{$msg}} </p>
-<table border="1">
-@foreach($data as $item)
-<tr>
-<th> {{$item->id}} </th>
-<td> {{$item->name_and_age}} </td>
-<td> {{$item->all_data}} </td>
-</tr>
-@endforeach
-</table>
+
+<div id="mycomponent"></div>
+<script	 src="{{asset('/js/app.js')}}"></script>
+
+
 </body>
 </html>
 

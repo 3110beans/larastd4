@@ -20,17 +20,10 @@ class HelloController extends Controller
 	{
 	}
 
-	public function index(Person $person = null){
-		if($person != null){
-			//Myjob::dispatch($person);
-			Myjob::dispatch($person)->delay(now()->addMinutes(3));
-		}
-		$msg = 'show people record.';
-		$result = Person::get();
+	public function index(){
+
 		$data = [
-			"input" => "",
-			"msg" => $msg,
-			"data" => $result,
+			"msg" => 'This is React Application.',
 		];
 
 		return view('hello/index', $data);
@@ -68,6 +61,24 @@ class HelloController extends Controller
 
 
 /*
+
+	public function index(Person $person = null){
+		if($person != null){
+			//Myjob::dispatch($person);
+			Myjob::dispatch($person)->delay(now()->addMinutes(3));
+		}
+		$msg = 'show people record.';
+		$result = Person::get();
+		$data = [
+			"input" => "",
+			"msg" => $msg,
+			"data" => $result,
+		];
+
+		return view('hello/index', $data);
+
+	}
+
 
 	public function index(Request $request){
 
